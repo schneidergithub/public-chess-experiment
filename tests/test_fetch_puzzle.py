@@ -1,4 +1,5 @@
 import requests
+import pytest
 
 from src.fetch_puzzle import LOCAL_FALLBACK_PUZZLE, PuzzleFetchError, fetch_daily_puzzle
 
@@ -42,9 +43,5 @@ def test_fetch_daily_puzzle_raises_on_non_200(monkeypatch) -> None:
         lambda *args, **kwargs: _FakeResponse(500, {"error": "boom"}),
     )
 
-    try:
+    with pytest.raises(PuzzleFetchError, match="500"):
         fetch_daily_puzzle()
-    except PuzzleFetchError as exc:
-        assert "500" in str(exc)
-    else:
-        raise AssertionError("Expected PuzzleFetchError for non-200 responses")

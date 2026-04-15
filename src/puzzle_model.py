@@ -24,7 +24,7 @@ def _extract_fen(raw_payload: dict) -> str:
         if fen_value:
             return str(fen_value)
 
-    raise ValueError("No FEN found in payload. Expected puzzle.fen, raw.fen, or game.fen")
+    raise ValueError("No FEN found in payload. Expected puzzle.fen, payload.fen, or game.fen")
 
 
 def _extract_perf(raw_payload: dict) -> str | None:
