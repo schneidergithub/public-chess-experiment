@@ -24,7 +24,14 @@ def _render_board_image(board: chess.Board, board_size: int, show_coordinates: b
     return Image.open(BytesIO(png_bytes)).convert("RGBA")
 
 
-def _draw_centered_text(draw: ImageDraw.ImageDraw, text: str, y: int, font: ImageFont.ImageFont, fill: str, canvas_width: int) -> None:
+def _draw_centered_text(
+    draw: ImageDraw.ImageDraw,
+    text: str,
+    y: int,
+    font: ImageFont.FreeTypeFont | ImageFont.ImageFont,
+    fill: str,
+    canvas_width: int,
+) -> None:
     text_box = draw.textbbox((0, 0), text, font=font)
     text_width = text_box[2] - text_box[0]
     draw.text(((canvas_width - text_width) // 2, y), text, font=font, fill=fill)
@@ -123,7 +130,9 @@ def render_frames(puzzle: PuzzleModel, frames_dir: Path, config: dict) -> list[P
     if puzzle.solution:
         first_move = chess.Move.from_uci(puzzle.solution[0])
         if first_move not in board.legal_moves:
-            raise ValueError(f"Illegal first puzzle move for provided FEN: {puzzle.solution[0]}")
+            raise ValueError(
+                f"Illegal first puzzle move {puzzle.solution[0]} for provided FEN: {puzzle.fen}"
+            )
         board.push(first_move)
         frame_index = _save_scene(
             board=board,
@@ -143,7 +152,7 @@ def render_frames(puzzle: PuzzleModel, frames_dir: Path, config: dict) -> list[P
             subtitle_font=subtitle_font,
         )
 
-    _save_scene(
+    frame_index = _save_scene(
         board=board,
         title="Puzzle complete",
         subtitle=f"Themes: {', '.join(puzzle.themes) if puzzle.themes else 'N/A'}",

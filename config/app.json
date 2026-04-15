@@ -20,6 +20,7 @@
     "outro_seconds": 1.0
   },
   "ffmpeg": {
-    "binary": "ffmpeg"
+    "binary": "ffmpeg",
+    "timeout_seconds": 300
   }
 }
