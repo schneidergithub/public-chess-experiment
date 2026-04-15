@@ -1,0 +1,26 @@
+{
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "codec": "libx264",
+    "pixel_format": "yuv420p"
+  },
+  "render": {
+    "board_size": 740,
+    "show_coordinates": true,
+    "header_height": 220,
+    "background_color": "#101010",
+    "text_color": "#f2f2f2",
+    "title_font_size": 64,
+    "subtitle_font_size": 42,
+    "intro_seconds": 1.0,
+    "think_seconds": 1.0,
+    "solution_seconds": 1.0,
+    "outro_seconds": 1.0
+  },
+  "ffmpeg": {
+    "binary": "ffmpeg",
+    "timeout_seconds": 300
+  }
+}
